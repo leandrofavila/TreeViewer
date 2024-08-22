@@ -48,7 +48,7 @@ class DB:
         df = pd.DataFrame(df, columns=['COD_ITEM', 'NUM_ORDEM', 'QTDE', 'TIPO_ORDEM', 'DESC_TECNICA', 'PLANEJADOR',
                                        'NUM_ITEM'])
         df['QTDE'] = df['QTDE'].astype(int)
-        df.to_csv(f"carregamento{carregamento}.csv", index=False)
+        #df.to_csv(f"carregamento{carregamento}.csv", index=False)
         return df
 
 
@@ -73,7 +73,7 @@ class DB:
         df = pd.DataFrame(cur.fetchall(), columns=["NUM_ORDEM", "COD_ITEM", "DT_EMISSAO", "TIPO_ORDEM", "QTDE",
                                                    "LISTAGG"]).astype(int, errors="ignore")
         cur.close()
-        df.to_csv(f"dados_filhos{carregamento, ordem}.csv", index=False)
+        #df.to_csv(f"dados_filhos{carregamento, ordem}.csv", index=False)
         return df
 
 
@@ -100,7 +100,7 @@ class DB:
         )
         pop_up = pd.DataFrame(cur.fetchall(), columns=["NUM_ORDEM", "LISTAGG"])
         cur.close()
-        pop_up.to_csv(f"pop_up{carregamento}.csv", index=False)
+        #pop_up.to_csv(f"pop_up{carregamento}.csv", index=False)
         return pop_up
 
 

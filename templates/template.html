@@ -5,36 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CarTreeViewer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        /* Estilo para o formulário */
-        form {
-            width: 30%; /* Define a largura do formulário como 100% da largura da tela */
-            height: 50px; /* Defina a altura da caixa como 50px */
-            margin: 0; /* Remove as margens padrão */
-            padding: 0; /* Remove o preenchimento padrão */
-            display: flex; /* Usa flexbox para alinhar os elementos */
-            align-items: center; /* Centraliza verticalmente os itens */
-        }
-
-        /* Estilo para a label */
-        label {
-            font-size: 24px; /* Define o tamanho da fonte */
-            margin-right: 10px; /* Adiciona um espaçamento à direita */
-        }
-
-        /* Estilo para o campo de texto */
-        input[type="text"] {
-            flex: 1; /* Ocupa todo o espaço restante */
-            width: auto; /* Define a largura automática */
-            font-size: 24px; /* Define o tamanho da fonte */
-        }
-
-        /* Estilo para o botão */
-        input[type="submit"] {
-            /* Adicione estilos conforme necessário para o botão */
-            font-size: 24px; /* Define o tamanho da fonte */
-        }
-    </style>
 </head>
 <body>
 
@@ -44,6 +14,5 @@
     <input type="submit" value="Gerar Arvore">
 </form>
 {{ tree_html|safe }}
-
 </body>
 </html>
