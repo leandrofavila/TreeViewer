@@ -47,6 +47,7 @@ def url_link(cod_item):
 
 @app.route('/', methods=["GET", "POST"])
 def criar():
+
     if request.method == "GET":
         return render_template('template.html')
     elif request.method == "POST":
