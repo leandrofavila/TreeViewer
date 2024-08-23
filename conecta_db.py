@@ -148,5 +148,6 @@ class DB:
         )
         df_geral = pd.DataFrame(cur.fetchall(), columns=["DESC_CAR", "MAE", "FILHO", "NUM_ORDEM",
                                                          "QTDE", "TIPO_ORDEM", "SITUACAO"])
+
         cur.close()
         return df_geral
