@@ -28,7 +28,9 @@ def generate_tree(df, carregamento):
 
 def generate_next_level_tree(df_lv2, mae):
     next_level_html = "<ul>"
+
     for _, row in df_lv2.iterrows():
+
         if row['MAE'] == mae and row['FILHO'] != mae:
             pop_set = set(str(row["SITUACAO"]).split('|'))
             pop = '\n'.join(pop_set)
@@ -49,6 +51,7 @@ def url_link(cod_item):
 def criar():
     if request.method == "GET":
         return render_template('template.html')
+
     elif request.method == "POST":
         carregamento = request.form.get("carregamento")
         df_geral = carre.geral(carregamento)
