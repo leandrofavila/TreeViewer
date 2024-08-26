@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CarTreeViewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<form method="post" action="/">
+    <label>Carregamento: </label>
+    <input type="text" name="carregamento">
+    <input type="submit" value="Gerar Arvore">
+
+</form>
+<h4>{{ desc_car }} </h4>
+{{ tree_html|safe }}
+</body>
+</html>

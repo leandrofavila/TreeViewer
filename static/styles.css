@@ -1,0 +1,170 @@
+* {margin: 0; padding: 0;}
+
+form {
+    width: 30%; /* Define a largura do formulário como 100% da largura da tela */
+    height: 50px; /* Defina a altura da caixa como 50px */
+    margin: 100; /* Remove as margens padrão */
+    padding: 0; /* Remove o preenchimento padrão */
+    display: flex; /* Usa flexbox para alinhar os elementos */
+    align-items: center; /* Centraliza verticalmente os itens */
+    position: fixed; /* Mantém o formulário fixo na tela */
+    top: 0; /* Fixa o formulário no topo da página */
+    left: 0; /* Fixa o formulário à esquerda da página */
+    background-color: white; /* Define um fundo branco para garantir legibilidade */
+    z-index: 1000; /* Garante que o formulário fique acima de outros elementos da página */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra para destacar o formulário */
+
+}
+
+
+h4 {
+    display: inline;
+    font-size: 24px;
+    margin-right: 100px;
+    margin-left: 100px;
+    white-space: nowrap;
+    margin-top: 0px;
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    font-family: 'Times New Roman', 'Georgia', serif;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-size: 24px;
+    margin-right: 20px;
+    margin-left: 100px;
+    font-family: 'Times New Roman', 'Georgia', serif;
+}
+
+input[type="text"] {
+    flex: 1;
+    width: auto;
+    font-size: 24px;
+    font-family: 'Times New Roman', 'Georgia', serif;
+}
+
+input[type="submit"] {
+    font-size: 24px;
+    font-family: 'Times New Roman', 'Georgia', serif;
+}
+
+.tree {
+    margin-top: 80px;
+    padding: 20px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+}
+
+.tree ul {
+	padding-left: 20px; position: relative;
+	transition: all 1s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.tree li {
+	text-align: center;
+	list-style-type: none;
+	position: relative;
+	padding: 5px 0 5px 20px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.tree li::before, .tree li::after{
+	content: '';
+	position: absolute; left: 0; bottom: 50%;
+	border-left: 1px solid #ccc;
+	width: 20px; height: 50%;
+}
+.tree li::after{
+	bottom: auto; top: 50%;
+	border-top: 1px solid #ccc;
+}
+
+.tree li:only-child::after, .tree li:only-child::before {
+	display: none;
+}
+
+.tree li:only-child{
+    padding-left: 0;
+    }
+
+.tree li:first-child::before, .tree li:last-child::after{
+	border: 0 none;
+}
+.tree li:last-child::before{
+	border-bottom: 1px solid #ccc;
+	border-radius: 0 0 0px 0;
+	-webkit-border-radius: 0 0 0px 0;
+	-moz-border-radius: 0 0 0px 0;
+}
+.tree li:first-child::after{
+	border-radius: 0 0 0 0px;
+	-webkit-border-radius: 0 0 0 0px;
+	-moz-border-radius: 0 0 0 0px;
+}
+
+.tree ul ul::before{
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	border-top: 1px solid #ccc;
+	width: 20px; height: 0;
+}
+
+.tree li a{
+	border: 1px solid #ccc;
+	padding: 10px 5px;
+	text-decoration: none;
+	color: #666;
+	font-family: arial, verdana, tahoma;
+	font-size: 24px;
+	display: inline-block;
+	-ms-flex-item-align: center;
+	-ms-grid-row-align: center;
+	align-self: center;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.tree li .OFA-link{
+  background: #e9453f;
+  color: #fff;
+  border: $border-width solid #e9453f;
+}
+
+.tree li .OFE-link{
+  background: #3fe96a;
+  color: #fff;
+  border: $border-width solid #3fe96a;
+}
+
+.tree li a:hover + ul li::after, .tree li a:hover + ul li::before, .tree li a:hover + ul::before, .tree li a:hover + ul ul::before {
+	 border-color: #e9453f;
