@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_from_directory, url_for, request
 from conecta_db import DB
+import pandas as pd
 
 app = Flask(__name__)
 carre = DB()
@@ -8,35 +9,29 @@ carre = DB()
 ###Adicionar a possibilidade de passar uma ordem qualquer e retornar a arvore da familia da ordem
 def generate_tree(df, carregamento):
     tree_html = f'<div class="tree"><ul><li><a href="#">{carregamento}</a><ul>'
-    df = df.drop('DESC_CAR', axis=1)
-    df_group = df[df['MAE'] == df['FILHO']]
-
-    for _, row in df_group.iterrows():
-        pop = str(row["SITUACAO"]).replace('|', '\n')
-        tree_html += f'<li><a class="{row["TIPO_ORDEM"]}-link" href="{url_link(row["MAE"])}" ' \
-                     f'title="{pop}">{row["NUM_ORDEM"]} - {row["MAE"]} - {row["QTDE"]}</a>'
-        mae = row["MAE"]
-        next_level_html = generate_next_level_tree(df, mae)
-
-        if next_level_html:
-            tree_html += next_level_html
-            tree_html += '</li>'
-
+    for _, row in df.iterrows():
+        if row["DESC_TECNICA"].endswith('EXP'):
+            pop = str(row["LISTAGG"]).replace('|', '\n')
+            tree_html += f'<li><a class="{row["TIPO_ORDEM"]}-link" href="{url_link(row["COD_ITEM"])}" ' \
+                         f'title="{pop}">{row["NUM_ORDEM"]} - {row["COD_ITEM"]} - {row["QTDE"]}</a>'
+            next_level_html = generate_next_level_tree(row["NUM_ORDEM"], carregamento)
+            if next_level_html:
+                tree_html += next_level_html
+                tree_html += '</li>'
     tree_html += '</ul></div>'
     return tree_html
 
 
-def generate_next_level_tree(df_lv2, mae):
+def generate_next_level_tree(num_ordem, carregamento):
+    df_lv2 = pd.DataFrame(carre.filhos(carregamento, num_ordem))
     next_level_html = "<ul>"
-
     for _, row in df_lv2.iterrows():
-
-        if row['MAE'] == mae and row['FILHO'] != mae:
-            pop_set = set(str(row["SITUACAO"]).split('|'))
-            pop = '\n'.join(pop_set)
-            next_level_html += f'<li><a class="{row["TIPO_ORDEM"]}-link" href="{url_link(row["FILHO"])}"title="{pop}">' \
-                               f'{row["NUM_ORDEM"]} - {row["FILHO"]} - {row["QTDE"]}</a>'
-            next_level_html += "</li>"
+        pop_set = set(str(row["LISTAGG"]).split('|'))
+        pop = '\n'.join(pop_set)
+        next_level_html += f'<li><a class="{row["TIPO_ORDEM"]}-link" href="{url_link(row["COD_ITEM"])}"title="{pop}">' \
+                           f'{row["NUM_ORDEM"]} - {row["COD_ITEM"]} - {row["QTDE"]}</a>'
+        next_level_html += generate_next_level_tree(row["NUM_ORDEM"], carregamento)
+        next_level_html += "</li>"
     next_level_html += "</ul>"
     return next_level_html
 
@@ -59,7 +54,11 @@ def criar():
         desc_car = df_geral.iloc[0, 0]
         desc_car = f'{desc_car} - CARREGAMENTO - {carregamento}'
         print(desc_car)
-        tree_html = generate_tree(df_geral, carregamento)
+        car = carre.car(carregamento)
+        df = pd.DataFrame(car)
+        pop_up = carre.pop_up(carregamento)
+        df = pd.merge(df, pop_up, on='NUM_ORDEM', how='inner')
+        tree_html = generate_tree(df, carregamento)
         return render_template('template.html', tree_html=tree_html, desc_car=desc_car)
 
 
