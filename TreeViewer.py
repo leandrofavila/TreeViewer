@@ -6,7 +6,6 @@ app = Flask(__name__)
 carre = DB()
 
 
-###Adicionar a possibilidade de passar uma ordem qualquer e retornar a arvore da familia da ordem
 def generate_tree(df, carregamento):
     tree_html = f'<div class="tree"><ul><li><a href="#">{carregamento}</a><ul>'
     for _, row in df.iterrows():
